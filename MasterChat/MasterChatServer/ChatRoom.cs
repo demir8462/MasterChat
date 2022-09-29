@@ -43,17 +43,19 @@ namespace MasterChatServer
                                     {
                                         members.mesajAt(msj.msj, msj.ARGB);
                                     }
-                                    sender.mesajlar.Clear();
                                 }
                             }
+                            sender.mesajlar.Clear();
                         }
                         catch (Exception e)
                         {
+                            Form1.writeConsole(e.Message);
                             continue;
                         }
                     }
                 }catch(Exception e)
                 {
+                    Form1.writeConsole(e.Message);
                     continue;
                 }
             }

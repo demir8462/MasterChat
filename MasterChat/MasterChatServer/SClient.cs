@@ -82,7 +82,7 @@ namespace MasterChatServer
                     room.ID = Server.odalar.Count;
                     room.JOINID = "AA" + room.ID.ToString();
                     room.participants.Add(this);
-                    room.participantcount = room.participants.Count;
+                    room.participantcount = 1;
                     paket.type = IPaket.PAKETTYPE.CEVAP;
                     paket.cevap = true;
                     paket.JOINID = room.JOINID;

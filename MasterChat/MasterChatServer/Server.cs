@@ -61,7 +61,7 @@ namespace MasterChatServer
                         }
                         else
                         {
-                            Form1.odaEkle(oda.ID.ToString(), oda.JOINID, oda.participants.Count);
+                            Form1.odaEkle(oda.ID.ToString(), oda.JOINID, oda.participantcount);
                         }
                     }
                 }
