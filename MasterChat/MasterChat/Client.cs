@@ -118,9 +118,10 @@ namespace MasterChat
                 return false;
             }
         }
-        public static bool createRoom()
+        public static bool createRoom(string pass)
         {
             paket.type = IPaket.PAKETTYPE.ODAKUR;
+            paket.roompass = pass;
             sendPackage(paket);
             while (connected)
             {
@@ -144,10 +145,11 @@ namespace MasterChat
             }
             return false;
         }
-        public static bool joinRoom(string id)
+        public static bool joinRoom(string id,string pass)
         {
             paket.type = IPaket.PAKETTYPE.ODABAGLAN;
             paket.JOINID = id;
+            paket.roompass = pass;
             sendPackage(paket);
             while (connected)
             {
@@ -198,7 +200,10 @@ namespace MasterChat
                         GpaketInfo.mesaj = Gpaket.msj;
                         GpaketInfo.ARGB = Gpaket.ARGB;
                         eventler[EventManager.EVENTTYPE.PAKETAL](evento, GpaketInfo);
-                        Sohbet.mesajEkle(GpaketInfo.mesaj,Color.FromArgb(GpaketInfo.ARGB));
+                        if(Sohbet.AllowColorfulTexts)
+                            Sohbet.mesajEkle(GpaketInfo.mesaj, Color.FromArgb(GpaketInfo.ARGB));
+                        else
+                            Sohbet.mesajEkle(GpaketInfo.mesaj, Color.Black);
                     }
                 }
             }

@@ -10,3 +10,6 @@ C:\Users\alide\source\repos\MasterChat\MCLIB\obj\Debug\net6.0\MCLIB.dll
 C:\Users\alide\source\repos\MasterChat\MCLIB\obj\Debug\net6.0\refint\MCLIB.dll
 C:\Users\alide\source\repos\MasterChat\MCLIB\obj\Debug\net6.0\MCLIB.pdb
 C:\Users\alide\source\repos\MasterChat\MCLIB\obj\Debug\net6.0\ref\MCLIB.dll
+C:\Users\alide\source\repos\MasterChat\MCLIB\bin\Debug\net6.0\MCPlugin.dll
+C:\Users\alide\source\repos\MasterChat\MCLIB\bin\Debug\net6.0\MCPlugin.pdb
+C:\Users\alide\source\repos\MasterChat\MCLIB\obj\Debug\net6.0\MCLIB.csproj.CopyComplete

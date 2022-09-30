@@ -37,6 +37,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // listView1
@@ -85,12 +86,12 @@
             // 
             this.textBox1.Location = new System.Drawing.Point(12, 428);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(555, 27);
+            this.textBox1.Size = new System.Drawing.Size(515, 27);
             this.textBox1.TabIndex = 5;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(573, 428);
+            this.button1.Location = new System.Drawing.Point(533, 428);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(68, 27);
             this.button1.TabIndex = 6;
@@ -101,19 +102,31 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.panel1.Location = new System.Drawing.Point(647, 428);
+            this.panel1.Location = new System.Drawing.Point(607, 428);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(38, 27);
+            this.panel1.Size = new System.Drawing.Size(34, 27);
             this.panel1.TabIndex = 7;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             this.panel1.DoubleClick += new System.EventHandler(this.panel1_DoubleClick);
             this.panel1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseClick);
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(647, 430);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(158, 24);
+            this.checkBox1.TabIndex = 8;
+            this.checkBox1.Text = "Allow Colorful Msg";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // Sohbet
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 457);
+            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox1);
@@ -141,5 +154,6 @@
         private Button button1;
         private Panel panel1;
         private ColorDialog colorDialog1;
+        private CheckBox checkBox1;
     }
 }

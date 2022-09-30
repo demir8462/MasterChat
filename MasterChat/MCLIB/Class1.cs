@@ -7,7 +7,7 @@
         public enum PAKETTYPE {PLUGINSORGU,ODABAGLAN,ODAKUR ,CEVAP,MESAJ}
         public bool cevap;
         public PAKETTYPE type;
-        public string detay, JOINID, msj;
+        public string detay, JOINID, msj,roompass;
         public int ARGB;
     }
   

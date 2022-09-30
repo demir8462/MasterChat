@@ -40,6 +40,8 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -94,7 +96,7 @@
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(156, 105);
+            this.textBox4.Location = new System.Drawing.Point(156, 138);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(125, 27);
             this.textBox4.TabIndex = 7;
@@ -102,7 +104,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 108);
+            this.label4.Location = new System.Drawing.Point(12, 141);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(59, 20);
             this.label4.TabIndex = 6;
@@ -110,7 +112,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(12, 147);
+            this.button1.Location = new System.Drawing.Point(12, 218);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(113, 29);
             this.button1.TabIndex = 8;
@@ -120,7 +122,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(12, 182);
+            this.button2.Location = new System.Drawing.Point(12, 253);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(113, 29);
             this.button2.TabIndex = 9;
@@ -129,7 +131,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(168, 147);
+            this.button3.Location = new System.Drawing.Point(168, 218);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(113, 29);
             this.button3.TabIndex = 10;
@@ -139,7 +141,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(168, 182);
+            this.button4.Location = new System.Drawing.Point(168, 253);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(113, 29);
             this.button4.TabIndex = 11;
@@ -147,11 +149,29 @@
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
+            // textBox5
+            // 
+            this.textBox5.Location = new System.Drawing.Point(156, 105);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(125, 27);
+            this.textBox5.TabIndex = 13;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(12, 108);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(87, 20);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "PASSWORD";
+            // 
             // ClientMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(293, 222);
+            this.ClientSize = new System.Drawing.Size(293, 294);
+            this.Controls.Add(this.textBox5);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
@@ -187,5 +207,7 @@
         private Button button2;
         private Button button3;
         private Button button4;
+        private TextBox textBox5;
+        private Label label5;
     }
 }

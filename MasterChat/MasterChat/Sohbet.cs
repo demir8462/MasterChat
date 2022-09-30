@@ -14,6 +14,8 @@ namespace MasterChat
     {
         public static Color ownTextColor = Color.Black;
         public static RichTextBox mesajTxt;
+        public static bool AllowColorfulTexts = false;
+
         public Sohbet()
         {
             InitializeComponent();
@@ -26,6 +28,7 @@ namespace MasterChat
         {
             Client.MesajYolla(Client.nick+":"+textBox1.Text);
             mesajEkle(Client.nick + textBox1.Text,ownTextColor);
+            textBox1.Text = "";
         }
         public static void mesajEkle(string txt,Color c)
         {
@@ -54,6 +57,11 @@ namespace MasterChat
             colorDialog1.ShowDialog();
             ownTextColor = colorDialog1.Color;
             panel1.BackColor = ownTextColor;
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            AllowColorfulTexts = checkBox1.Checked;
         }
     }
 }

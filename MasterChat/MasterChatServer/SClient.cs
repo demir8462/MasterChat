@@ -26,6 +26,7 @@ namespace MasterChatServer
         Socket s;
         IPaket paket= new IPaket(),Gpaket;
         ChatRoom room;
+        bool oldu = false;
         public List<Mesaj> mesajlar = new List<Mesaj>(); 
         public SClient(Socket s)
         {
@@ -78,7 +79,7 @@ namespace MasterChatServer
                 lock(Server.odao)
                 {
                     Form1.writeConsole("ODA KURMA ISTEGI DEGERLENDIRILIYOR..");
-                    ChatRoom room = new ChatRoom();
+                    ChatRoom room = new ChatRoom(Gpaket.roompass);
                     room.ID = Server.odalar.Count;
                     room.JOINID = "AA" + room.ID.ToString();
                     room.participants.Add(this);
@@ -86,26 +87,30 @@ namespace MasterChatServer
                     paket.type = IPaket.PAKETTYPE.CEVAP;
                     paket.cevap = true;
                     paket.JOINID = room.JOINID;
-                    Server.odalar.Add(room);
                     this.room = room;
-                    Form1.writeConsole("CEVAP YOLLANIYOR JOINID:" + paket.JOINID);
+                    Server.odalar.Add(this.room);
+                    
+                    Form1.writeConsole("CEVAP YOLLANIYOR JOINID:" + paket.JOINID+" PASS:"+Gpaket.roompass);
                 }
                 sendPaket(paket);
             }
             else if (Gpaket.type == IPaket.PAKETTYPE.ODABAGLAN)
             {
                 bool x = false;
-                foreach  (ChatRoom oda in Server.odalar)
+                lock(Server.odao)
                 {
-                    if(oda.JOINID == Gpaket.JOINID)
+                    foreach (ChatRoom oda in Server.odalar)
                     {
-                        oda.participants.Add(this);
-                        lock(Server.odao)
+                        if (oda.JOINID == Gpaket.JOINID && Gpaket.roompass == oda.PASS)
                         {
+                            oda.participants.Add(this);
                             oda.participantcount++;
-                            
+                            room = oda;
+                            x = true;
+                        }else
+                        {
+                            paket.detay = "Şifre yanlış !";
                         }
-                        x = true;
                     }
                 }
                 paket.type = IPaket.PAKETTYPE.CEVAP;    
@@ -131,16 +136,21 @@ namespace MasterChatServer
         }
         void clientOl()
         {
-            lock(Server.odao)
+            if (oldu)
+                return;
+            oldu = true;
+            s.Close();
+            stream.Close();
+            lock (Server.odao)
             {
-                s.Close();
-                stream.Close();
-                Server.REMOVEclients.Add(this);
-                Server.removeClientControl(this);
                 room.participantcount--;
                 room.participants.Remove(this);
+
                 Form1.writeConsole("Client öldü");
+
             }
+            
+
         }
     }
 }

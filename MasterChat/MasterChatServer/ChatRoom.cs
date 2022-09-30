@@ -9,54 +9,57 @@ namespace MasterChatServer
     public class ChatRoom
     {
         public int ID;
-        public string JOINID;
+        public string JOINID,PASS;
         public List<SClient> participants = new List<SClient>();
         public int participantcount;
         public static object o = new object(),mesajo = new object();
-        public ChatRoom()
+        public ChatRoom(string PASS)
         {
-            lock(o)
-            {
-                Server.ALLROOMCOUNT++;
-                ID = Server.ALLROOMCOUNT;
-            }
+            this.PASS = PASS;
+            Server.ALLROOMCOUNT++;
+            ID = Server.ALLROOMCOUNT;
+            
             Task.Factory.StartNew(MesageRouter);
         }
         public void MesageRouter()
         {
             while (true)
             {
-                try
+               lock(Server.odao)
                 {
-                    foreach (SClient sender in participants)
+                    try
                     {
-
-                        try
+                        foreach (SClient sender in participants)
                         {
-                            foreach (SClient members in participants)
+
+                            try
                             {
-                                if (members == sender)
-                                    continue;
-                                lock(mesajo)
+                                foreach (SClient members in participants)
                                 {
-                                    foreach (Mesaj msj in sender.mesajlar)
+                                    if (members == sender)
+                                        continue;
+                                    lock (mesajo)
                                     {
-                                        members.mesajAt(msj.msj, msj.ARGB);
+                                        foreach (Mesaj msj in sender.mesajlar)
+                                        {
+                                            members.mesajAt(msj.msj, msj.ARGB);
+                                        }
                                     }
                                 }
+                                sender.mesajlar.Clear();
                             }
-                            sender.mesajlar.Clear();
-                        }
-                        catch (Exception e)
-                        {
-                            Form1.writeConsole(e.Message);
-                            continue;
+                            catch (Exception e)
+                            {
+                                Form1.writeConsole(e.Message);
+                                continue;
+                            }
                         }
                     }
-                }catch(Exception e)
-                {
-                    Form1.writeConsole(e.Message);
-                    continue;
+                    catch (Exception e)
+                    {
+                        Form1.writeConsole(e.Message);
+                        continue;
+                    }
                 }
             }
                 
