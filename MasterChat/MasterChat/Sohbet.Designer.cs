@@ -85,9 +85,11 @@
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(12, 428);
+            this.textBox1.MaxLength = 250;
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(515, 27);
             this.textBox1.TabIndex = 5;
+            this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
             // 
             // button1
             // 

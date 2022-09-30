@@ -26,8 +26,13 @@ namespace MasterChat
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if (textBox1.Text.Length < 10)
+            {
+                MessageBox.Show("Mesajınız en az 10 karaekter olmalıdır !", "SPAM ATIYOR OLABİLİR MİSİN SALİH ?", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             Client.MesajYolla(Client.nick+":"+textBox1.Text);
-            mesajEkle(Client.nick + textBox1.Text,ownTextColor);
+            mesajEkle("YOU:" +textBox1.Text,ownTextColor);
             textBox1.Text = "";
         }
         public static void mesajEkle(string txt,Color c)
@@ -41,7 +46,11 @@ namespace MasterChat
         {
 
         }
-
+        public static void ScrollGuncelle()
+        {
+            richTextBox.SelectionStart = richTextBox.Text.Length;
+            mesajTxt.ScrollToCaret();
+        }
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
@@ -62,6 +71,21 @@ namespace MasterChat
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             AllowColorfulTexts = checkBox1.Checked;
+        }
+
+        private void textBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Control && e.KeyCode == Keys.V)
+            {
+                e.SuppressKeyPress = true;
+                MessageBox.Show("cv");
+                return;
+            }
+            if(e.KeyCode == Keys.Enter)
+            {
+                button1_Click(this, e);
+            }
+            
         }
     }
 }

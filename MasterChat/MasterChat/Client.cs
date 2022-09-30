@@ -201,7 +201,10 @@ namespace MasterChat
                         GpaketInfo.ARGB = Gpaket.ARGB;
                         eventler[EventManager.EVENTTYPE.PAKETAL](evento, GpaketInfo);
                         if(Sohbet.AllowColorfulTexts)
+                        {
                             Sohbet.mesajEkle(GpaketInfo.mesaj, Color.FromArgb(GpaketInfo.ARGB));
+                            Sohbet.ScrollGuncelle();
+                        }
                         else
                             Sohbet.mesajEkle(GpaketInfo.mesaj, Color.Black);
                     }
