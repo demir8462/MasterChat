@@ -4,6 +4,7 @@ namespace MCPlugin
 {
     public interface MCPLUGIN
     {
+        // THESE PROPERTIE'S VALUES HAVE TO BE DEFINED ON OVERRIDE
         public string Name { get;}
         public string Version { get;}
         public string Desc { get;}

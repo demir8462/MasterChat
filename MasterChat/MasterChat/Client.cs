@@ -40,7 +40,7 @@ namespace MasterChat
                 eventler[EventManager.EVENTTYPE.PAKETYOLLA] = EmptyEvent;
                 eventler[EventManager.EVENTTYPE.MESAJYOLLA] = EmptyEvent;
                 eventler[EventManager.EVENTTYPE.MESAJAL] = EmptyEvent;
-                loadPlugins();
+                loadEvents();
                 return true;
             }catch(Exception e)
             {
@@ -48,6 +48,7 @@ namespace MasterChat
             }
 
         }
+       
         static void EmptyEvent(object s,EventArgs e)
         {
 
@@ -67,6 +68,10 @@ namespace MasterChat
                 }
             }
             
+            
+        }
+        public static void loadEvents()
+        {
             foreach (MCPLUGIN item in plugins)
             {
                 Task.Run(() =>
@@ -80,7 +85,6 @@ namespace MasterChat
                         if (eventler[item.Key] != null)
                         {
                             eventler[item.Key] += item.Value;
-                            MessageBox.Show("event ekle");
                         }
                     }
                 });
@@ -122,6 +126,16 @@ namespace MasterChat
         {
             paket.type = IPaket.PAKETTYPE.ODAKUR;
             paket.roompass = pass;
+            foreach  (MCPLUGIN plugin in plugins)
+            {
+                if (!plugin.Essential)
+                    continue;
+                Plugin p = new Plugin();
+                p.name = plugin.Name;
+                p.desc = plugin.Desc;
+                p.essential = plugin.Essential;
+                paket.pluginler.Add(p);
+            }
             sendPackage(paket);
             while (connected)
             {
@@ -150,6 +164,16 @@ namespace MasterChat
             paket.type = IPaket.PAKETTYPE.ODABAGLAN;
             paket.JOINID = id;
             paket.roompass = pass;
+            foreach (MCPLUGIN plugin in plugins)
+            {
+                if (!plugin.Essential)
+                    continue;
+                Plugin p = new Plugin();
+                p.name = plugin.Name;
+                p.desc = plugin.Desc;
+                p.essential = plugin.Essential;
+                paket.pluginler.Add(p);
+            }
             sendPackage(paket);
             while (connected)
             {

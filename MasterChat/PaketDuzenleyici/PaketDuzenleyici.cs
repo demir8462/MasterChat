@@ -5,7 +5,7 @@ namespace PaketDuzenleyici
     {
         public EventManager manager { get; set; }
 
-        public string Name { get; set; }
+        public string Name { get; set; } 
 
         public string Version { get; set; }
 
@@ -18,6 +18,7 @@ namespace PaketDuzenleyici
             Name = "Paket Duzenleyici";
             Desc = "PD";
             Version = "asd"; 
+            Essential = true;
         }
         public void Run()
         {

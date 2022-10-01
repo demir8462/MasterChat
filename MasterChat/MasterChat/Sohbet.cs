@@ -48,7 +48,7 @@ namespace MasterChat
         }
         public static void ScrollGuncelle()
         {
-            richTextBox.SelectionStart = richTextBox.Text.Length;
+            mesajTxt.SelectionStart = mesajTxt.Text.Length;
             mesajTxt.ScrollToCaret();
         }
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -78,7 +78,7 @@ namespace MasterChat
             if(e.Control && e.KeyCode == Keys.V)
             {
                 e.SuppressKeyPress = true;
-                MessageBox.Show("cv");
+               
                 return;
             }
             if(e.KeyCode == Keys.Enter)

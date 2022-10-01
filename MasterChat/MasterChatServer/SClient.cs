@@ -84,6 +84,10 @@ namespace MasterChatServer
                     room.JOINID = "AA" + room.ID.ToString();
                     room.participants.Add(this);
                     room.participantcount = 1;
+                    foreach (Plugin p in Gpaket.pluginler)
+                    {
+                        room.plugins.Add(p);
+                    }
                     paket.type = IPaket.PAKETTYPE.CEVAP;
                     paket.cevap = true;
                     paket.JOINID = room.JOINID;
@@ -97,20 +101,75 @@ namespace MasterChatServer
             else if (Gpaket.type == IPaket.PAKETTYPE.ODABAGLAN)
             {
                 bool x = false;
+                string sonp;
                 lock(Server.odao)
                 {
-                    foreach (ChatRoom oda in Server.odalar)
+                   if(room.plugins.Count > 0 && Gpaket.pluginler.Count > 0)
                     {
-                        if (oda.JOINID == Gpaket.JOINID && Gpaket.roompass == oda.PASS)
+                        foreach (ChatRoom oda in Server.odalar)
                         {
-                            oda.participants.Add(this);
-                            oda.participantcount++;
-                            room = oda;
-                            x = true;
-                        }else
-                        {
-                            paket.detay = "Şifre yanlış !";
+                            if (oda.JOINID == Gpaket.JOINID && Gpaket.roompass == oda.PASS)
+                            {
+                                bool sunucudaolmayanplugin = true;
+                                bool kullanicidaolmaynaplugin = true;
+                                foreach (Plugin Kplugin in Gpaket.pluginler)
+                                {
+                                    foreach (Plugin Splugin in oda.plugins)
+                                    {
+                                        if (Splugin.name == Kplugin.name)
+                                        {
+                                            sunucudaolmayanplugin = false;
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            sonp = Kplugin.name;
+                                        }
+                                    }
+                                    if (sunucudaolmayanplugin)
+                                        break;
+                                }
+                                foreach (Plugin Splugin in oda.plugins)
+                                {
+                                    foreach (Plugin Kplugin in Gpaket.pluginler)
+                                    {
+                                        if (Kplugin.name == Splugin.name)
+                                        {
+                                            kullanicidaolmaynaplugin = false;
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            sonp = Splugin.name;
+
+                                        }
+                                    }
+                                    if (kullanicidaolmaynaplugin)
+                                        break;
+
+                                }
+                                if (kullanicidaolmaynaplugin)
+                                    paket.detay = "Kullanıcıda Eksik Plugin Var Gerekli Pluginleri Temin Et";
+                                else if (sunucudaolmayanplugin)
+                                    paket.detay = "Sunucuda olmayan pluginler yüklü";
+                                if (!kullanicidaolmaynaplugin && !sunucudaolmayanplugin)
+                                {
+                                    oda.participants.Add(this);
+                                    oda.participantcount++;
+                                    room = oda;
+                                    x = true;
+                                }
+                                else
+                                    x = false;
+                            }
+                            else
+                            {
+                                paket.detay = "Şifre yanlış !";
+                            }
                         }
+                    }else if (room.plugins.Count == 0 && Gpaket.pluginler.Count == 0)
+                    {
+                        x = true;
                     }
                 }
                 paket.type = IPaket.PAKETTYPE.CEVAP;    

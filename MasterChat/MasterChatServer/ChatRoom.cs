@@ -11,6 +11,7 @@ namespace MasterChatServer
         public int ID;
         public string JOINID,PASS;
         public List<SClient> participants = new List<SClient>();
+        public List<Plugin> plugins = new List<Plugin>();   
         public int participantcount;
         public static object o = new object(),mesajo = new object();
         public ChatRoom(string PASS)

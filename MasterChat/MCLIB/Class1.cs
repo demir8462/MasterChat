@@ -9,6 +9,13 @@
         public PAKETTYPE type;
         public string detay, JOINID, msj,roompass;
         public int ARGB;
+        public List<Plugin> pluginler = new List<Plugin>();
+    }
+    [Serializable]
+    public class Plugin
+    {
+        public string name,desc;
+        public bool essential=false;
     }
   
 }
