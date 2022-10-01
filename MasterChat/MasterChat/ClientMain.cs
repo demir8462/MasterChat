@@ -30,7 +30,7 @@ namespace MasterChat
 
         private void button4_Click(object sender, EventArgs e)
         {
-            Client.createRoom(textBox5.Text);
+            Client.createRoom(textBox5.Text,textBox3.Text);
             Client.odajoinid = Client.Gpaket.JOINID;
             Client.nick = textBox3.Text;
             sohbetform = new Sohbet();
@@ -48,7 +48,7 @@ namespace MasterChat
 
         private void button3_Click(object sender, EventArgs e)
         {
-            if (!Client.joinRoom(textBox4.Text,textBox5.Text))
+            if (!Client.joinRoom(textBox4.Text,textBox5.Text,textBox3.Text))
                 return;
             Client.odajoinid = textBox4.Text;
             Client.nick = textBox3.Text;

@@ -27,7 +27,8 @@ namespace MasterChatServer
         IPaket paket= new IPaket(),Gpaket;
         ChatRoom room;
         bool oldu = false;
-        public List<Mesaj> mesajlar = new List<Mesaj>(); 
+        public List<Mesaj> mesajlar = new List<Mesaj>();
+        public string nick;
         public SClient(Socket s)
         {
             stream = new NetworkStream(s);
@@ -104,9 +105,10 @@ namespace MasterChatServer
                 string sonp;
                 lock(Server.odao)
                 {
-                   if(room.plugins.Count > 0 && Gpaket.pluginler.Count > 0)
-                    {
                         foreach (ChatRoom oda in Server.odalar)
+                        {
+
+                        if (oda.plugins.Count > 0 && Gpaket.pluginler.Count > 0)
                         {
                             if (oda.JOINID == Gpaket.JOINID && Gpaket.roompass == oda.PASS)
                             {
@@ -162,15 +164,18 @@ namespace MasterChatServer
                                 else
                                     x = false;
                             }
+                            else if (oda.plugins.Count == 0 && Gpaket.pluginler.Count == 0)
+                            {
+                                x = true;
+                            }
                             else
                             {
                                 paket.detay = "Şifre yanlış !";
                             }
                         }
-                    }else if (room.plugins.Count == 0 && Gpaket.pluginler.Count == 0)
-                    {
-                        x = true;
-                    }
+
+                        }
+                    
                 }
                 paket.type = IPaket.PAKETTYPE.CEVAP;    
                 paket.cevap = x;
@@ -185,6 +190,7 @@ namespace MasterChatServer
                 Form1.writeConsole(Gpaket.msj);
             }
             
+
         }
         public void mesajAt(string msj,int mcolor)
         {

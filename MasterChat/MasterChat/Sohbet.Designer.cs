@@ -31,13 +31,14 @@
             this.listView1 = new System.Windows.Forms.ListView();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.listView2 = new System.Windows.Forms.ListView();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.listView2 = new System.Windows.Forms.ListView();
+            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
             this.SuspendLayout();
             // 
             // listView1
@@ -51,28 +52,20 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(704, -1);
+            this.label1.Location = new System.Drawing.Point(674, -1);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(50, 20);
+            this.label1.Size = new System.Drawing.Size(103, 20);
             this.label1.TabIndex = 1;
-            this.label1.Text = "label1";
+            this.label1.Text = "PARTICIPANTS";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(704, 229);
+            this.label2.Location = new System.Drawing.Point(692, 239);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(50, 20);
+            this.label2.Size = new System.Drawing.Size(67, 20);
             this.label2.TabIndex = 2;
-            this.label2.Text = "label2";
-            // 
-            // listView2
-            // 
-            this.listView2.Location = new System.Drawing.Point(647, 262);
-            this.listView2.Name = "listView2";
-            this.listView2.Size = new System.Drawing.Size(151, 160);
-            this.listView2.TabIndex = 3;
-            this.listView2.UseCompatibleStateImageBehavior = false;
+            this.label2.Text = "PLUGINS";
             // 
             // richTextBox1
             // 
@@ -123,17 +116,33 @@
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
+            // listView2
+            // 
+            this.listView2.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1});
+            this.listView2.Location = new System.Drawing.Point(647, 262);
+            this.listView2.Name = "listView2";
+            this.listView2.Size = new System.Drawing.Size(151, 160);
+            this.listView2.TabIndex = 9;
+            this.listView2.UseCompatibleStateImageBehavior = false;
+            this.listView2.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "NAME";
+            this.columnHeader1.Width = 151;
+            // 
             // Sohbet
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 457);
+            this.Controls.Add(this.listView2);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.richTextBox1);
-            this.Controls.Add(this.listView2);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.listView1);
@@ -150,12 +159,13 @@
         private ListView listView1;
         private Label label1;
         private Label label2;
-        private ListView listView2;
         private RichTextBox richTextBox1;
         private TextBox textBox1;
         private Button button1;
         private Panel panel1;
         private ColorDialog colorDialog1;
         private CheckBox checkBox1;
+        private ListView listView2;
+        private ColumnHeader columnHeader1;
     }
 }

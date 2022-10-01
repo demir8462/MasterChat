@@ -34,6 +34,12 @@ namespace MasterChat
             Client.MesajYolla(Client.nick+":"+textBox1.Text);
             mesajEkle("YOU:" +textBox1.Text,ownTextColor);
             textBox1.Text = "";
+            /*Client.getKatilimcilar();
+            listView1.Items.Clear();
+            foreach (string item in Client.PARTICIPANTS)
+            {
+                listView1.Items.Add(new ListViewItem(item));
+            }*/
         }
         public static void mesajEkle(string txt,Color c)
         {
@@ -44,7 +50,13 @@ namespace MasterChat
 
         private void Sohbet_Load(object sender, EventArgs e)
         {
-
+            this.Text = Client.nick;
+            listView2.Items.Clear();
+            foreach (MCPlugin.MCPLUGIN item in Client.plugins)
+            {
+                string[] lvi = { item.Name};
+                listView2.Items.Add(new ListViewItem(lvi));
+            }
         }
         public static void ScrollGuncelle()
         {
@@ -66,6 +78,7 @@ namespace MasterChat
             colorDialog1.ShowDialog();
             ownTextColor = colorDialog1.Color;
             panel1.BackColor = ownTextColor;
+            textBox1.ForeColor = ownTextColor;
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)

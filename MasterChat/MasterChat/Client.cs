@@ -19,6 +19,7 @@ namespace MasterChat
         public static IPaket paket = new IPaket(),Gpaket = new IPaket();
         public static bool connected, odabagli;
         public static string odajoinid,nick;
+        public static string[] PARTICIPANTS = {};
         public static event EventHandler paketAl,paketYolla,EmesajAl,EmesajYolla;
         public static object evento = new object(); // bos
         public static Dictionary<EventManager.EVENTTYPE, EventHandler> eventler = new Dictionary<EventManager.EVENTTYPE, EventHandler>();
@@ -122,10 +123,11 @@ namespace MasterChat
                 return false;
             }
         }
-        public static bool createRoom(string pass)
+        public static bool createRoom(string pass,string nickk)
         {
             paket.type = IPaket.PAKETTYPE.ODAKUR;
             paket.roompass = pass;
+            nick = nickk;
             foreach  (MCPLUGIN plugin in plugins)
             {
                 if (!plugin.Essential)
@@ -159,11 +161,12 @@ namespace MasterChat
             }
             return false;
         }
-        public static bool joinRoom(string id,string pass)
+        public static bool joinRoom(string id,string pass,string nickk)
         {
             paket.type = IPaket.PAKETTYPE.ODABAGLAN;
             paket.JOINID = id;
             paket.roompass = pass;
+            nick = nickk;
             foreach (MCPLUGIN plugin in plugins)
             {
                 if (!plugin.Essential)
@@ -232,6 +235,18 @@ namespace MasterChat
                         else
                             Sohbet.mesajEkle(GpaketInfo.mesaj, Color.Black);
                     }
+                }
+            }
+        }
+        public static void getKatilimcilar()
+        {
+            paket.type = IPaket.PAKETTYPE.GETPARTICIPANTS;
+            sendPackage(paket);
+            while (true)
+            {
+                if (getPackage())
+                {
+                    break;
                 }
             }
         }
