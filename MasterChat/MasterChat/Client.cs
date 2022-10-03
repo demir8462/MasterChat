@@ -25,6 +25,7 @@ namespace MasterChat
         public static Dictionary<EventManager.EVENTTYPE, EventHandler> eventler = new Dictionary<EventManager.EVENTTYPE, EventHandler>();
         public static List<MCPLUGIN> plugins = new List<MCPLUGIN>();
         public static MCPlugin.EventInfo paketInfo= new MCPlugin.EventInfo(), GpaketInfo= new MCPlugin.EventInfo();
+        static object paketLock = new object();
         public static bool connect(string ip="127.0.0.1",int port=2525)
         {
             try
@@ -103,8 +104,12 @@ namespace MasterChat
                     return false;
                 }
                 paket.msj = paketInfo.mesaj;
+                paket.nick = nick;
                 paket.ARGB = paketInfo.ARGB;
-                bf.Serialize(stream, paket);
+                lock(paketLock)
+                {
+                    bf.Serialize(stream, paket);
+                }
                 return true;
             }catch(Exception e)
             {
@@ -115,7 +120,8 @@ namespace MasterChat
         {
             try
             {
-                Gpaket = (IPaket)bf.Deserialize(stream); 
+                Gpaket = (IPaket)bf.Deserialize(stream);
+                eventler[EventManager.EVENTTYPE.PAKETAL](evento, GpaketInfo);
                 return (Gpaket != null);
             }catch(Exception e)
             {
@@ -128,6 +134,7 @@ namespace MasterChat
             paket.type = IPaket.PAKETTYPE.ODAKUR;
             paket.roompass = pass;
             nick = nickk;
+            paket.nick = nickk;
             foreach  (MCPLUGIN plugin in plugins)
             {
                 if (!plugin.Essential)
@@ -148,7 +155,7 @@ namespace MasterChat
                         if(Gpaket.cevap)
                         {
 
-                            // ODA KURMUS MAN KODLAR
+                            odabagli = true;
                             return true;
                         }else
                         {
@@ -167,6 +174,7 @@ namespace MasterChat
             paket.JOINID = id;
             paket.roompass = pass;
             nick = nickk;
+            paket.nick = nickk;
             foreach (MCPLUGIN plugin in plugins)
             {
                 if (!plugin.Essential)
@@ -187,7 +195,7 @@ namespace MasterChat
                         if (Gpaket.cevap)
                         {
 
-                            MessageBox.Show("ODA GİRDİK");
+                            odabagli = true;
                             return true;
                         }
                         else
@@ -226,7 +234,7 @@ namespace MasterChat
                     {
                         GpaketInfo.mesaj = Gpaket.msj;
                         GpaketInfo.ARGB = Gpaket.ARGB;
-                        eventler[EventManager.EVENTTYPE.PAKETAL](evento, GpaketInfo);
+                        eventler[EventManager.EVENTTYPE.MESAJAL](evento, GpaketInfo);
                         if(Sohbet.AllowColorfulTexts)
                         {
                             Sohbet.mesajEkle(GpaketInfo.mesaj, Color.FromArgb(GpaketInfo.ARGB));
@@ -234,21 +242,27 @@ namespace MasterChat
                         }
                         else
                             Sohbet.mesajEkle(GpaketInfo.mesaj, Color.Black);
+                    }else if (Gpaket.type == IPaket.PAKETTYPE.SENDBEEP)
+                    {
+                        Sohbet.BEEPSOUND();
+                    }
+                    else if (Gpaket.type == IPaket.PAKETTYPE.GETPARTICIPANTS)
+                    {
+                        Sohbet.katilimcilar = Gpaket.katilimcilar;
                     }
                 }
             }
         }
+
         public static void getKatilimcilar()
         {
             paket.type = IPaket.PAKETTYPE.GETPARTICIPANTS;
             sendPackage(paket);
-            while (true)
-            {
-                if (getPackage())
-                {
-                    break;
-                }
-            }
+        }
+        public static void sendBeep()
+        {
+            paket.type = IPaket.PAKETTYPE.SENDBEEP;
+            sendPackage(paket);
         }
     }
 }

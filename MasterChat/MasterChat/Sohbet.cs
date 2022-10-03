@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -15,15 +16,18 @@ namespace MasterChat
         public static Color ownTextColor = Color.Black;
         public static RichTextBox mesajTxt;
         public static bool AllowColorfulTexts = false;
-
+        public static string[] katilimcilar = { };
+        public Thread katilimcithr;
         public Sohbet()
         {
             InitializeComponent();
             Control.CheckForIllegalCrossThreadCalls = false;
 
             mesajTxt = richTextBox1;
+            katilimcithr = new Thread(new ThreadStart(katilimciGuncelle));
+            katilimcithr.Start();
         }
-
+        
         private void button1_Click(object sender, EventArgs e)
         {
             if (textBox1.Text.Length < 10)
@@ -99,6 +103,27 @@ namespace MasterChat
                 button1_Click(this, e);
             }
             
+        }
+        public static void BEEPSOUND()
+        {
+            SystemSounds.Hand.Play();
+        }
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Client.sendBeep();
+        }
+        public void katilimciGuncelle()
+        {
+            while (Client.odabagli && Client.connected)
+            {
+                Client.getKatilimcilar();
+                listView1.Items.Clear();
+                foreach (string item in katilimcilar)
+                {
+                    listView1.Items.Add(new ListViewItem(item));
+                }
+                Thread.Sleep(1000);
+            }
         }
     }
 }

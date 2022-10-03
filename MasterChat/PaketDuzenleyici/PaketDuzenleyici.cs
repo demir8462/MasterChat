@@ -24,7 +24,7 @@ namespace PaketDuzenleyici
         {
             manager.regEvent(paketAl, EventManager.EVENTTYPE.PAKETAL);
             manager.regEvent(paketYolla, EventManager.EVENTTYPE.PAKETYOLLA);
-            
+            manager.regEvent(RainBowMesja, EventManager.EVENTTYPE.MESAJAL);
             
         }
         public void paketAl(object s,EventArgs e)
@@ -36,6 +36,13 @@ namespace PaketDuzenleyici
             MessageBox.Show("sa");
             EventInfo info = (EventInfo)e;
             info.mesaj = "OYNANDI:" + info.mesaj;
+        }
+        public void RainBowMesja(object s , EventArgs e)
+        {
+            Random rand = new Random();
+            Color[] list = { Color.Green,Color.Red,Color.Purple,Color.Pink,Color.Orange,Color.Orchid,Color.LightCoral};
+            EventInfo info = (EventInfo)e;
+            info.ARGB = list[rand.Next(0, 7)].ToArgb();
         }
     }
 }
