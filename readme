@@ -1,1 +1,6 @@
 Seems working good.
+What is this , how does it work and whats is the privilege ?
+This is a basic chatroom, communucation application which requires a server to create rooms. People can start a server , create rooms with passwords.
+Eventhough so far everything seems normal , this application is plugin based and also opensource. I've published the code with a few events such as
+getmessage and getpackage. For instance you can code a plugin that makes messages crypted before sent and set the plugin type as essential so people who don't 
+have these plugins can not connect. Events and properties can be improved and increased.
