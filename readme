@@ -4,3 +4,8 @@ This is a basic chatroom, communucation application which requires a server to c
 Eventhough so far everything seems normal , this application is plugin based and also opensource. I've published the code with a few events such as
 getmessage and getpackage. For instance you can code a plugin that makes messages crypted before sent and set the plugin type as essential so people who don't 
 have these plugins can not connect. Events and properties can be improved and increased.
+
+This app works on sockets and needs specialized objects to be sent as packages. In MCLIB there is a class named IPaket (i might have renamed it). Both server and clients
+use 2 package objects created from IPaket ,one for getting packages and the other one for sending. The way i use for communication makes my job way easier.
+
+For optimization i mostly have avoided using multi threads , instead of it I used tasks.
